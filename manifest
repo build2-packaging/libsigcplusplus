@@ -1,0 +1,13 @@
+: 1
+name: libsigcplusplus
+version: 3.4.0-a.0.z
+summary: The Typesafe Callback Framework for C++
+license: other: LGPL-3.0
+description-file: upstream/README.md
+url: https://github.com/libsigcplusplus/libsigcplusplus
+email: swat.somebug@gmail.com
+#build-error-email: swat.somebug@gmail.com
+requires: c++17
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+#depends: libhello ^1.0.0

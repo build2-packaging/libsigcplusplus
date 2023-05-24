@@ -1,0 +1,65 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+#import xxxx_libs += libhello%lib{hello}
+
+lib{sigc}: {hxx cxx}{** -sigc++.config} hxx{sigc++config} $impl_libs $intf_libs
+
+
+disable_depcration_define_str = '/* #undef SIGCXX_DISABLE_DEPRECATED */'
+if($config.libsigcplusplus.disable_deprecated)
+  disable_depcration_define_str = '#define SIGCXX_DISABLE_DEPRECATED'
+
+hxx{sigc++config}: in{sigc++config} $src_root/manifest
+# {
+#   disable_depcration_define_str = '/* #undef SIGCXX_DISABLE_DEPRECATED */'
+#   # if(config.libsigcplusplus.disable_deprecated) {
+#   #   DISABLE_DEPRECATION_DEFINE_STR = '/* #undef SIGCXX_DISABLE_DEPRECATED */'
+#   # }
+#   # else {
+#   #   DISABLE_DEPRECATION_DEFINE_STR = '#define SIGCXX_DISABLE_DEPRECATED'
+#   # }
+# }
+
+hxx{export}@./: cxx.importable = false
+
+# Build options.
+#
+cxx.poptions =+ "-I$out_root" "-I$out_base" "-I$src_base"
+cxx.poptions += -DSIGC_BUILD # Common for all builds
+
+# {hbmia obja}{*}: cxx.poptions += 
+# {hbmis objs}{*}: cxx.poptions += -DSIGC_DLL
+
+# Export options.
+#
+lib{sigc}:
+{
+  cxx.export.poptions = "-I$out_root" "-I$out_base" "-I$src_base"
+  cxx.export.libs = $intf_libs
+}
+
+# liba{sigcplusplus}: cxx.export.poptions += -DLIBSIGCPLUSPLUS_STATIC
+# libs{sigc}: cxx.export.poptions += -DSIGC_DLL
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{sigc}: bin.lib.version = "-$version.project_id"
+else
+  lib{sigc}: bin.lib.version = "-$version.major".0 # $version-minor unused here
+
+# Install into the libsigcplusplus/ subdirectory of, say, /usr/include/
+# recreating subdirectories.
+#
+hxx{* -sigc++config}:
+{
+  install         = include/sigc++"-$version.major".0/
+  install.subdirs = true
+}
+
+hxx{sigc++config}:
+{
+  install = $install.lib/sigc++"-$version.major".0/include/
+}

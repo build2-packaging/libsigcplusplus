@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libsigc++/
+}
+
+export $out_root/libsigc++/$import.target
