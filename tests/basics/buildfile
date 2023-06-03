@@ -46,3 +46,7 @@ for s: $sources
   ./: exe{$s}: cxx{$s} {hxx cxx}{testutilities} $libs
 }
 cxx.coptions += "-I$src_base"
+
+# Warnings MSVC specific
+if($cxx.target.system == 'win32-msvc')
+  cxx.coptions += "/wd4244"

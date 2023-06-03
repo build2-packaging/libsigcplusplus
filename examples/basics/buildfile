@@ -1,0 +1,9 @@
+import libs = libsigcplusplus%lib{sigc}
+
+sources = hello_world \
+          member_method
+
+for s: $sources
+{
+  ./: exe{$s}: cxx{$s} $libs
+}
