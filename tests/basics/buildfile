@@ -48,5 +48,5 @@ for s: $sources
 cxx.coptions += "-I$src_base"
 
 # Warnings MSVC specific
-if($cxx.target.system == 'win32-msvc')
+if($cxx.target.system == 'win32-msvc' && $cxx.id != 'clang')
   cxx.coptions += "/wd4244"
