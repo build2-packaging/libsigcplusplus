@@ -1,10 +1,7 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 
-# Export all symbols on windows using def
-lib{sigc}: libul{sigc}: {hxx cxx}{** -sigc++.config} hxx{sigc++config} $impl_libs $intf_libs
-lib{sigc}: def{sigc}: include = ($cxx.target.system == 'win32-msvc')
-def{sigc}: libul{sigc}
+lib{sigc}: {hxx cxx}{** -sigc++.config} hxx{sigc++config} $impl_libs $intf_libs
 
 disable_depcration_define_str = '/* #undef SIGCXX_DISABLE_DEPRECATED */'
 if($config.libsigcplusplus.disable_deprecated)
@@ -16,6 +13,10 @@ hxx{sigc++config}: in{sigc++config} $src_root/manifest
 #
 cxx.poptions =+ "-I$out_root" "-I$out_base" "-I$src_base"
 cxx.poptions += -DSIGC_BUILD # Common for all builds
+
+# Windows specific hack -> This enables sigc++config to allow declspec(export) while building
+if($cxx.target.class == 'windows')
+  objs{*}: cxx.poptions += -D_WINDLL # In reality upstream need to rely on this with newer msvc
 
 # {hbmia obja}{*}: cxx.poptions += 
 # {hbmis objs}{*}: cxx.poptions += -DSIGC_DLL
