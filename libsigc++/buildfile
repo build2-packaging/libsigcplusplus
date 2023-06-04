@@ -10,17 +10,6 @@ if($config.libsigcplusplus.disable_deprecated)
   disable_depcration_define_str = '#define SIGCXX_DISABLE_DEPRECATED'
 
 hxx{sigc++config}: in{sigc++config} $src_root/manifest
-# {
-#   disable_depcration_define_str = '/* #undef SIGCXX_DISABLE_DEPRECATED */'
-#   # if(config.libsigcplusplus.disable_deprecated) {
-#   #   DISABLE_DEPRECATION_DEFINE_STR = '/* #undef SIGCXX_DISABLE_DEPRECATED */'
-#   # }
-#   # else {
-#   #   DISABLE_DEPRECATION_DEFINE_STR = '#define SIGCXX_DISABLE_DEPRECATED'
-#   # }
-# }
-
-hxx{export}@./: cxx.importable = false
 
 # Build options.
 #
