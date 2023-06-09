@@ -11,3 +11,4 @@ requires: c++17
 depends: * build2 >= 0.15.0
 depends: * bpkg >= 0.15.0
 #depends: libhello ^1.0.0
+build-exclude: windows-*-static* ; Exclude combination of windows and static builds -> Not currently supported
