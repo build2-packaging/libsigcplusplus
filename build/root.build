@@ -17,4 +17,16 @@ hxx{*}: cxx.importable = true
 #
 test.target = $cxx.target
 
+# Quit out when building static lib on windows
+if($cxx.target.class == 'windows')
+{
+    if($config.bin.lib == 'static')
+        fail 'Building static lib on windows is not supported. See https://github.com/libsigcplusplus/libsigcplusplus/issues/90 for details.'
+    else
+    {
+        $bin.lib = 'shared'
+        info 'Only building shared libs on windows'
+    }
+}
+
 config [bool] config.libsigcplusplus.disable_deprecated ?= false

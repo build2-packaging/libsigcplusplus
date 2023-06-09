@@ -3,4 +3,7 @@ $out_root/
   include libsigc++/
 }
 
-export $out_root/libsigc++/$import.target
+if($cxx.target.class == 'windows' && $import.target == liba{sigc})
+  fail 'Static linking on windows is not supported'
+else
+  export $out_root/libsigc++/$import.target
