@@ -1,0 +1,5 @@
+: 1
+name: libsigcplusplus
+version: 3.4.0+1
+summary: The Typesafe Callback Framework for C++
+license: LGPL-3.0
